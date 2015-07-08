@@ -139,11 +139,11 @@ function getGuildInfo(guild_id) {
                
             
                lastIdInserted = resultFlagId[0].flag_id
-               //console.log('resultFlagId: '+ resultFlagId[0].flag_id);
+               console.log('INSIDE lastIdInserted: '+ lastIdInserted);
             });
             
             console.log('['+ response.tag + '] ' + response.guild_name);
-            
+            console.log('OUTSIDE lastIdInserted: '+ lastIdInserted);
             
             var emblem = {id                         : lastIdInserted, 
                           FlipBackgroundHorizontal   : 0,
