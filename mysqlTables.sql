@@ -15,10 +15,10 @@ CREATE TABLE `guilds` (
 --
 CREATE TABLE `guild_emblem_flags` (
   `id` int(11) NOT NULL,
-  `FlipBackgroundHorizontal` bit(1) DEFAULT b'0',
-  `FlipBackgroundVertical` bit(1) DEFAULT b'0',
-  `FlipForegroundHorizontal` bit(1) DEFAULT b'0',
-  `FlipForegroundVertical` bit(1) DEFAULT b'0',
+  `FlipBackgroundHorizontal` int(1),
+  `FlipBackgroundVertical` int(1),
+  `FlipForegroundHorizontal` int(1),
+  `FlipForegroundVertical` int(1),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
