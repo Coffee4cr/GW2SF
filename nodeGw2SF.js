@@ -149,10 +149,10 @@ function getGuildInfo(guild_id) {
                              FlipForegroundVertical     : 0 
                             };
                              
-               var emblemUpd = {FlipBackgroundHorizontal: 0,
-                                FlipBackgroundVertical  : 0,
-                                FlipForegroundHorizontal: 0,
-                                FlipForegroundVertical  : 0 
+               var emblemUpd = {FlipBackgroundHorizontal: 1,
+                                FlipBackgroundVertical  : 1,
+                                FlipForegroundHorizontal: 1,
+                                FlipForegroundVertical  : 1 
                                };
                var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
                   //error
@@ -160,7 +160,7 @@ function getGuildInfo(guild_id) {
                      console.error('error connecting: ' + errEmblem.stack);
                      return;
                   }
-                  //console.log(queryEmblem.sql);
+                  console.log('Emblem Done');
                   
                });
             });
