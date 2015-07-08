@@ -160,7 +160,6 @@ function getGuildInfo(guild_id) {
                      console.error('error connecting: ' + errEmblem.stack);
                      return;
                   }
-                  console.log('Emblem Done -- '+lastIdInserted);
                   
                });
             });
