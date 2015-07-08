@@ -130,10 +130,19 @@ function getGuildInfo(guild_id) {
             }
             //console.log(queryGuild.sql); 
             
-            lastIdInserted = resultGuild.insertId
+            var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
+               //error
+               if (errFlagId) {
+                  console.error('error connecting: ' + errFlagId.stack);
+                  return;
+               }
+               
+            
+               lastIdInserted = resultFlagId.flag_id
+            });
             
             console.log('['+ response.tag + '] ' + response.guild_name);
-            //console.log('lastIdInserted: '+ lastIdInserted);
+            console.log('lastIdInserted: '+ lastIdInserted);
             
             var emblem = {id                         : lastIdInserted, 
                           FlipBackgroundHorizontal   : 0,

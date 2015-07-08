@@ -4,7 +4,7 @@ CREATE TABLE `guilds` (
   `tag` varchar(10) NOT NULL,
   `background_id` int(11) DEFAULT NULL,
   `foreground_id` int(11) DEFAULT NULL,
-  `flags` int(11) NOT NULL AUTO_INCREMENT,
+  `flag_id` int(11) unsigned NOT NULL,
   `background_color_id` int(11) DEFAULT NULL,
   `foreground_primary_color_id` int(11) DEFAULT NULL,
   `foreground_secondary_color_id` int(11) DEFAULT NULL,
@@ -21,4 +21,18 @@ CREATE TABLE `guild_emblem_flags` (
   `FlipForegroundVertical` bit(1) DEFAULT b'0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+--
+CREATE TRIGGER GuildWars2.guilds_BRI 
+BEFORE INSERT ON guilds FOR EACH ROW
+BEGIN
+   DECLARE temp_id integer;
+   SELECT MAX(id)+1 INTO temp_id FROM guild_emblem_flags;
+   SET NEW.last_seen = NOW();
+   SET NEW.flag_id = temp_id;
+END
+--
+CREATE TRIGGER GuildWars2.guilds_BRU 
+BEFORE UPDATE ON guilds FOR EACH ROW
+BEGIN
+   SET NEW.last_seen = NOW();
+END
