@@ -138,8 +138,8 @@ function getGuildInfo(guild_id) {
                }
                
             
-               lastIdInserted = resultFlagId.flag_id
-               console.log('resultFlagId: '+ resultFlagId[0].flag_id);
+               lastIdInserted = resultFlagId[0].flag_id
+               //console.log('resultFlagId: '+ resultFlagId[0].flag_id);
             });
             
             console.log('['+ response.tag + '] ' + response.guild_name);
