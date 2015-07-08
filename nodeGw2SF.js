@@ -143,16 +143,16 @@ function getGuildInfo(guild_id) {
                console.log('['+ response.tag + '] ' + response.guild_name);
                
                var emblem = {id                         : lastIdInserted, 
-                             FlipBackgroundHorizontal   : '0',
-                             FlipBackgroundVertical     : '0',
-                             FlipForegroundHorizontal   : '0',
-                             FlipForegroundVertical     : '0' 
+                             FlipBackgroundHorizontal   : b'0',
+                             FlipBackgroundVertical     : b'0',
+                             FlipForegroundHorizontal   : b'0',
+                             FlipForegroundVertical     : b'0' 
                             };
                              
-               var emblemUpd = {FlipBackgroundHorizontal: '1',
-                                FlipBackgroundVertical  : '1',
-                                FlipForegroundHorizontal: '1',
-                                FlipForegroundVertical  : '1' 
+               var emblemUpd = {FlipBackgroundHorizontal: b'1',
+                                FlipBackgroundVertical  : b'1',
+                                FlipForegroundHorizontal: b'1',
+                                FlipForegroundVertical  : b'1' 
                                };
                var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
                   //error
