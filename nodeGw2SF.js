@@ -139,32 +139,30 @@ function getGuildInfo(guild_id) {
                
             
                lastIdInserted = resultFlagId[0].flag_id
-               console.log('INSIDE lastIdInserted: '+ lastIdInserted);
-            });
             
-            console.log('['+ response.tag + '] ' + response.guild_name);
-            console.log('OUTSIDE lastIdInserted: '+ lastIdInserted);
-            
-            var emblem = {id                         : lastIdInserted, 
-                          FlipBackgroundHorizontal   : 0,
-                          FlipBackgroundVertical     : 0,
-                          FlipForegroundHorizontal   : 0,
-                          FlipForegroundVertical     : 0 
-                         };
-                          
-            var emblemUpd = {FlipBackgroundHorizontal: 0,
-                             FlipBackgroundVertical  : 0,
-                             FlipForegroundHorizontal: 0,
-                             FlipForegroundVertical  : 0 
-                            };
-            var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
-               //error
-               if (errEmblem) {
-                  console.error('error connecting: ' + errEmblem.stack);
-                  return;
-               }
-               //console.log(queryEmblem.sql);
+               console.log('['+ response.tag + '] ' + response.guild_name);
                
+               var emblem = {id                         : lastIdInserted, 
+                             FlipBackgroundHorizontal   : 0,
+                             FlipBackgroundVertical     : 0,
+                             FlipForegroundHorizontal   : 0,
+                             FlipForegroundVertical     : 0 
+                            };
+                             
+               var emblemUpd = {FlipBackgroundHorizontal: 0,
+                                FlipBackgroundVertical  : 0,
+                                FlipForegroundHorizontal: 0,
+                                FlipForegroundVertical  : 0 
+                               };
+               var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
+                  //error
+                  if (errEmblem) {
+                     console.error('error connecting: ' + errEmblem.stack);
+                     return;
+                  }
+                  //console.log(queryEmblem.sql);
+                  
+               });
             });
          });
          
