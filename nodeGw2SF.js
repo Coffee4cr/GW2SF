@@ -101,7 +101,6 @@ function getGuildInfo(guild_id) {
       res.on('end', function() {
          var response = JSON.parse(body);
          var lastIdInserted;
-         console.log(response);
          ////////////////////
          //Database Queries//
          ////////////////////
@@ -132,7 +131,10 @@ function getGuildInfo(guild_id) {
             //console.log(queryGuild.sql); 
             
             lastIdInserted = resultGuild.insertId
-            console.log('lastIdInserted: '+ lastIdInserted);
+            
+            console.log('['+ response.tag + '] ' + response.guild_name);
+            //console.log('lastIdInserted: '+ lastIdInserted);
+            
             var emblem = {id                         : lastIdInserted, 
                           FlipBackgroundHorizontal   : 0,
                           FlipBackgroundVertical     : 0,
@@ -166,6 +168,7 @@ function wait60sec(match_id, serverColor) {
    setTimeout(function(){
       scanForGuilds(match_id, serverColor);
    }, 60000);
+   console.log('');
 }
 ////////////////////
 //Connect Database//
