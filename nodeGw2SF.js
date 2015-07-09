@@ -141,42 +141,22 @@ function getGuildInfo(guild_id) {
                console.log('['+ response.tag + '] ' + response.guild_name);
                if(isDefined(response.emblem)) {   
                   console.log(response.emblem);
-                  if(isDefined(response.emblem.flags)) {
-                     console.log(response.emblem.flags);
-                     var emblem = {id                              : lastIdInserted, 
-                                   background_id                   : response.emblem.background_id,
+                  var emblem = {id                              : lastIdInserted, 
+                                background_id                   : response.emblem.background_id,
+                                foreground_id                   : response.emblem.foreground_id,
+                                background_color_id             : response.emblem.background_color_id,
+                                foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
+                                foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id,
+                                flags                           : JSON.parse(response.emblem.flags)
+                               };
+                             
+                  var emblemUpd = {background_id                   : response.emblem.background_id,
                                    foreground_id                   : response.emblem.foreground_id,
                                    background_color_id             : response.emblem.background_color_id,
                                    foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
                                    foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id,
-                                   flags                           : response.emblem.flags
+                                   flags                           : JSON.parse(response.emblem.flags)
                                   };
-                                
-                     var emblemUpd = {background_id                   : response.emblem.background_id,
-                                      foreground_id                   : response.emblem.foreground_id,
-                                      background_color_id             : response.emblem.background_color_id,
-                                      foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
-                                      foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id,
-                                      flags                           : response.emblem.flags
-                                     };
-                  }else {
-                     var emblem = {id                              : lastIdInserted, 
-                                   background_id                   : response.emblem.background_id,
-                                   foreground_id                   : response.emblem.foreground_id,
-                                   background_color_id             : response.emblem.background_color_id,
-                                   foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
-                                   foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id
-                                  };
-                                
-                     var emblemUpd = {background_id                   : response.emblem.background_id,
-                                      foreground_id                   : response.emblem.foreground_id,
-                                      background_color_id             : response.emblem.background_color_id,
-                                      foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
-                                      foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id
-                                     };
-                  }
-                  
-                  
                   var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
                      //error
                      if (errEmblem) {
