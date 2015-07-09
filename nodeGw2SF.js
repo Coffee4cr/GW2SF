@@ -119,27 +119,27 @@ function getGuildInfo(guild_id) {
          guildUpd  = {guild_name                   : response.guild_name,
                       tag                          : response.tag,
                      };    
-         if(isDefined(response.emblem) {
-            var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
+         
+         var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
+            //error
+            if (errGuild) {
+               console.error('error connecting: ' + errGuild.stack);
+               return;
+            }
+            //console.log(queryGuild.sql); 
+            
+            var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
                //error
-               if (errGuild) {
-                  console.error('error connecting: ' + errGuild.stack);
+               if (errFlagId) {
+                  console.error('error connecting: ' + errFlagId.stack);
                   return;
                }
-               //console.log(queryGuild.sql); 
                
-               var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
-                  //error
-                  if (errFlagId) {
-                     console.error('error connecting: ' + errFlagId.stack);
-                     return;
-                  }
-                  
-               
-                  lastIdInserted = resultFlagId[0].flag_id
-               
-                  console.log('['+ response.tag + '] ' + response.guild_name);
-                  
+            
+               lastIdInserted = resultFlagId[0].flag_id
+            
+               console.log('['+ response.tag + '] ' + response.guild_name);
+               if(isDefined(response.emblem)) {   
                   var emblem = {id                         : lastIdInserted, 
                                 FlipBackgroundHorizontal   : 0,
                                 FlipBackgroundVertical     : 0,
@@ -159,14 +159,13 @@ function getGuildInfo(guild_id) {
                         return;
                      }
                      
-                  });
-               });
-            });
-         };
-         
-         
+                  });//Query Emblem
+               };//if isDefined
+            });//Query Guild Select
+            
+         });//Query Guild Insert
          //console.log(response.guild_name + ' ['+response.tag+']');
-      });
+      });//res.on
    });
 }
 
