@@ -137,12 +137,9 @@ function getGuildInfo(guild_id) {
                
             
                lastIdInserted = resultFlagId[0].flag_id
-            
-               console.log('['+ response.tag + '] ' + response.guild_name);
                if(isDefined(response.emblem)) {   
                   if(response.emblem.flags.length !== 0) {
-                     console.log(response.emblem);
-                     console.log(response.emblem.flags);
+                     console.log('['+ response.tag + '] ' + response.guild_name + '  flags: ' + response.emblem.flags);
                      var emblem = {id                              : lastIdInserted, 
                                    background_id                   : response.emblem.background_id,
                                    foreground_id                   : response.emblem.foreground_id,
@@ -160,6 +157,7 @@ function getGuildInfo(guild_id) {
                                       flags                           : '"'+response.emblem.flags +'"'
                                      };
                   }else {
+                     console.log('['+ response.tag + '] ' + response.guild_name);
                      var emblem = {id                              : lastIdInserted, 
                                    background_id                   : response.emblem.background_id,
                                    foreground_id                   : response.emblem.foreground_id,
