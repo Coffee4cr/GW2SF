@@ -9,6 +9,12 @@ var connection = mysql.createPool({
 });
 
 var loopCount = 0;
+
+function isDefined(x) {
+    var undefined;
+    return x !== undefined;
+}
+
 function getMatchID() {
    var SFServerId = '1006'; 
    var blue  = 'Blue';
@@ -106,7 +112,6 @@ function getGuildInfo(guild_id) {
          ////////////////////
          //Database Queries//
          ////////////////////
-         
          guild  = {guild_id                        : response.guild_id, 
                    guild_name                      : response.guild_name,
                    tag                             : response.tag,
@@ -114,69 +119,50 @@ function getGuildInfo(guild_id) {
          guildUpd  = {guild_name                   : response.guild_name,
                       tag                          : response.tag,
                      };    
-         /*
-         guild  = {guild_id                        : response.guild_id, 
-                   guild_name                      : response.guild_name,
-                   tag                             : response.tag,
-                   background_id                   : response.emblem.background_id,
-                   foreground_id                   : response.emblem.foreground_id,
-                   background_color_id             : response.emblem.background_color_id,
-                   foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
-                   foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id
-                  };    
-         guildUpd  = {guild_name                   : response.guild_name,
-                      tag                          : response.tag,
-                      background_id                : response.emblem.background_id,
-                      foreground_id                : response.emblem.foreground_id,
-                      background_color_id          : response.emblem.background_color_id,
-                      foreground_primary_color_id  : response.emblem.foreground_primary_color_id,
-                      foreground_secondary_color_id: response.emblem.foreground_secondary_color_id
-                     };*/    
-         
-
-         
-         var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
-            //error
-            if (errGuild) {
-               console.error('error connecting: ' + errGuild.stack);
-               return;
-            }
-            //console.log(queryGuild.sql); 
-            
-            var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
+         if(isDefined(response.emblem) {
+            var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
                //error
-               if (errFlagId) {
-                  console.error('error connecting: ' + errFlagId.stack);
+               if (errGuild) {
+                  console.error('error connecting: ' + errGuild.stack);
                   return;
                }
+               //console.log(queryGuild.sql); 
                
-            
-               lastIdInserted = resultFlagId[0].flag_id
-            
-               console.log('['+ response.tag + '] ' + response.guild_name);
-               
-               var emblem = {id                         : lastIdInserted, 
-                             FlipBackgroundHorizontal   : 0,
-                             FlipBackgroundVertical     : 0,
-                             FlipForegroundHorizontal   : 0,
-                             FlipForegroundVertical     : 0 
-                            };
-                             
-               var emblemUpd = {FlipBackgroundHorizontal: 1,
-                                FlipBackgroundVertical  : 1,
-                                FlipForegroundHorizontal: 1,
-                                FlipForegroundVertical  : 1 
-                               };
-               var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
+               var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
                   //error
-                  if (errEmblem) {
-                     console.error('error connecting: ' + errEmblem.stack);
+                  if (errFlagId) {
+                     console.error('error connecting: ' + errFlagId.stack);
                      return;
                   }
                   
+               
+                  lastIdInserted = resultFlagId[0].flag_id
+               
+                  console.log('['+ response.tag + '] ' + response.guild_name);
+                  
+                  var emblem = {id                         : lastIdInserted, 
+                                FlipBackgroundHorizontal   : 0,
+                                FlipBackgroundVertical     : 0,
+                                FlipForegroundHorizontal   : 0,
+                                FlipForegroundVertical     : 0 
+                               };
+                                
+                  var emblemUpd = {FlipBackgroundHorizontal: 1,
+                                   FlipBackgroundVertical  : 1,
+                                   FlipForegroundHorizontal: 1,
+                                   FlipForegroundVertical  : 1 
+                                  };
+                  var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
+                     //error
+                     if (errEmblem) {
+                        console.error('error connecting: ' + errEmblem.stack);
+                        return;
+                     }
+                     
+                  });
                });
             });
-         });
+         };
          
          
          //console.log(response.guild_name + ' ['+response.tag+']');
