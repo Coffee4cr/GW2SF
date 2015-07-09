@@ -141,7 +141,7 @@ function getGuildInfo(guild_id) {
                console.log('['+ response.tag + '] ' + response.guild_name);
                if(isDefined(response.emblem)) {   
                   console.log(response.emblem);
-                  if(isDefined(response.emblem.flags) {
+                  if(isDefined(response.emblem.flags)) {
                      console.log(response.emblem.flags);
                      var emblem = {id                              : lastIdInserted, 
                                    background_id                   : response.emblem.background_id,
