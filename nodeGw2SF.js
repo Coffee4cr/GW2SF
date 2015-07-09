@@ -101,26 +101,39 @@ function getGuildInfo(guild_id) {
       res.on('end', function() {
          var response = JSON.parse(body);
          var lastIdInserted;
+         var guild;
+         var guildUpd;
          ////////////////////
          //Database Queries//
          ////////////////////
-         var guild  = {guild_id                        : response.guild_id, 
-                       guild_name                      : response.guild_name,
-                       tag                             : response.tag,
-                       background_id                   : response.emblem.background_id,
-                       foreground_id                   : response.emblem.foreground_id,
-                       background_color_id             : response.emblem.background_color_id,
-                       foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
-                       foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id
-                      };    
-         var guildUpd  = {guild_name                   : response.guild_name,
-                          tag                          : response.tag,
-                          background_id                : response.emblem.background_id,
-                          foreground_id                : response.emblem.foreground_id,
-                          background_color_id          : response.emblem.background_color_id,
-                          foreground_primary_color_id  : response.emblem.foreground_primary_color_id,
-                          foreground_secondary_color_id: response.emblem.foreground_secondary_color_id
-                         };    
+         
+         guild  = {guild_id                        : response.guild_id, 
+                   guild_name                      : response.guild_name,
+                   tag                             : response.tag,
+                  };    
+         guildUpd  = {guild_name                   : response.guild_name,
+                      tag                          : response.tag,
+                     };    
+         /*
+         guild  = {guild_id                        : response.guild_id, 
+                   guild_name                      : response.guild_name,
+                   tag                             : response.tag,
+                   background_id                   : response.emblem.background_id,
+                   foreground_id                   : response.emblem.foreground_id,
+                   background_color_id             : response.emblem.background_color_id,
+                   foreground_primary_color_id     : response.emblem.foreground_primary_color_id,
+                   foreground_secondary_color_id   : response.emblem.foreground_secondary_color_id
+                  };    
+         guildUpd  = {guild_name                   : response.guild_name,
+                      tag                          : response.tag,
+                      background_id                : response.emblem.background_id,
+                      foreground_id                : response.emblem.foreground_id,
+                      background_color_id          : response.emblem.background_color_id,
+                      foreground_primary_color_id  : response.emblem.foreground_primary_color_id,
+                      foreground_secondary_color_id: response.emblem.foreground_secondary_color_id
+                     };*/    
+         
+
          
          var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
             //error
