@@ -126,20 +126,12 @@ function getGuildInfo(guild_id) {
          
          var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
             //error
-            if (errGuild || !resultGuild) {
-               console.error('error connecting: ' + errGuild.stack);
-               console.log('error connecting: ' + errGuild.stack);
-               return;
-            }
+            if (errGuild) return resultGuild.json(errGuild);
              
             
             var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
                //error
-               if (errFlagId) {
-                  console.error('error connecting: ' + errFlagId.stack);
-                  console.log('error connecting: ' + errFlagId.stack);
-                  return;
-               }
+               if (errFlagId) return resultFlagId.json(errFlagId);
                lastIdInserted = resultFlagId[0].flag_id
                if(isDefined(response.emblem)) {   
                   if(response.emblem.flags.length !== 0) {
@@ -181,10 +173,7 @@ function getGuildInfo(guild_id) {
                   
                   var queryEmblem = connection.query('INSERT INTO guild_emblem_flags SET ? ON DUPLICATE KEY UPDATE ?', [emblem,emblemUpd], function(errEmblem, resultEmblem) {
                      //error
-                     if (errEmblem) {
-                        console.error('error connecting: ' + errEmblem.stack);
-                        return;
-                     }
+                     if (errEmblem) return resultEmblem.json(errEmblem);
                      
                   });//Query Emblem
                };//if isDefined
