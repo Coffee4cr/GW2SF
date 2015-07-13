@@ -123,7 +123,7 @@ function getGuildInfo(guild_id) {
          
          var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
             //error
-            if (errGuild) {
+            if (errGuild || !resultGuild) {
                console.error('error connecting: ' + errGuild.stack);
                console.log('error connecting: ' + errGuild.stack);
                return;
