@@ -137,8 +137,11 @@ function getGuildInfo(guild_id) {
                   console.log('error connecting: ' + errFlagId.stack);
                   return;
                }
-               console.log('console.log(resultFlagId[0]):' + resultFlagId[0]);
-               console.log('console.log(resultFlagId[1]):' + resultFlagId[1]);
+for (var key in resultFlagId) {
+  if (resultFlagId.hasOwnProperty(key)) {
+    console.log(key + " -> " + resultFlagId[key]);
+  }
+}
                lastIdInserted = resultFlagId[0].flag_id
                if(isDefined(response.emblem)) {   
                   if(response.emblem.flags.length !== 0) {
