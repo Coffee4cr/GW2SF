@@ -130,6 +130,7 @@ function getGuildInfo(guild_id) {
             var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
                //error
                if (errFlagId) return resultFlagId.json(errFlagId);
+               console.log('resultFlagId[0].flag_id : ' + resultFlagId[0].flag_id);
                lastIdInserted = resultFlagId[0].flag_id
                if(isDefined(response.emblem)) {   
                   if(response.emblem.flags.length !== 0) {
