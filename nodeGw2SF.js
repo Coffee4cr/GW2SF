@@ -1,6 +1,5 @@
 ﻿var http = require('https');
 var mysql      = require('mysql');
-
 var connection = mysql.createPool({
   connectionLimit : 60,
   host     : 'localhost',
@@ -8,7 +7,6 @@ var connection = mysql.createPool({
   password : 'tyria',
   database : 'GuildWars2'
 });
-connection.db_config.debug = true;
 var loopCount = 0;
 
 function isDefined(x) {
