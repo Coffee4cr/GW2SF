@@ -122,6 +122,7 @@ function getGuildInfo(guild_id) {
                       tag                          : response.tag,
                      };    
          
+         this.db_config.debug = true;
          var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
             //error
             if (errGuild || !resultGuild) {
