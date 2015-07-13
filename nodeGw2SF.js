@@ -79,7 +79,7 @@ function scanForGuilds(match_id, serverColor) {
       res.on('end', function() {
          var response = JSON.parse(body);
          //loop on each map
-         if (response){
+         if (response && response.maps){
             for (i = 0; i < response.maps.length; i++) {
                var map = response.maps[i];
                //loop on every objective from that map
