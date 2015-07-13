@@ -101,6 +101,11 @@ function getGuildInfo(guild_id) {
    var body = '';
    //get the guild details
    http.get(guildDetailUrl, function(res) {
+      res.set({
+               'Content-Type' : 'text/plain',
+               'charset' : 'utf-8'
+              }
+             );
       res.on('data', function(chunk) {
          body += chunk;
       });
