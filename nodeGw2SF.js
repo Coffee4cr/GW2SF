@@ -1,5 +1,6 @@
 ﻿var http = require('https');
 var mysql      = require('mysql');
+this.db_config.debug = true;
 var connection = mysql.createPool({
   connectionLimit : 60,
   host     : 'localhost',
@@ -122,7 +123,7 @@ function getGuildInfo(guild_id) {
                       tag                          : response.tag,
                      };    
          
-         this.db_config.debug = true;
+         
          var queryGuild = connection.query('INSERT INTO guilds SET ? ON DUPLICATE KEY UPDATE ?', [guild,guildUpd], function(errGuild, resultGuild) {
             //error
             if (errGuild || !resultGuild) {
