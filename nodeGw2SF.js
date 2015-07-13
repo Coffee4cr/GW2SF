@@ -125,6 +125,7 @@ function getGuildInfo(guild_id) {
             //error
             if (errGuild) {
                console.error('error connecting: ' + errGuild.stack);
+               console.log('error connecting: ' + errGuild.stack);
                return;
             }
             //console.log(response.guild_id); 
@@ -133,6 +134,7 @@ function getGuildInfo(guild_id) {
                //error
                if (errFlagId) {
                   console.error('error connecting: ' + errFlagId.stack);
+                  console.log('error connecting: ' + errFlagId.stack);
                   return;
                }
                
