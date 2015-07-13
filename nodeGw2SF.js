@@ -128,11 +128,11 @@ function getGuildInfo(guild_id) {
                console.log('error connecting: ' + errGuild.stack);
                return;
             }
-            //console.log(response.guild_id); 
+            console.log(response.guild_id); 
             
             var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
                //error
-               if (errFlagId) {
+               if (errFlagId || !resultFlagId) {
                   console.error('error connecting: ' + errFlagId.stack);
                   console.log('error connecting: ' + errFlagId.stack);
                   return;
