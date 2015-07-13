@@ -70,28 +70,31 @@ function scanForGuilds(match_id, serverColor) {
    console.log(loopCount);
    //get the details from each map in the current matchup. Every objective.
    http.get(matchDetailsUrl, function(res) {
+      res.on('error', function(e) {
+         console.log("Got error: ", e);
+         });
       res.on('data', function(chunk) {
          body += chunk;
       });
       res.on('end', function() {
          var response = JSON.parse(body);
          //loop on each map
-         for (i = 0; i < response.maps.length; i++) {
-            var map = response.maps[i];
-            //loop on every objective from that map
-            for (j = 0; j < map.objectives.length; j++) {
-               var objective = map.objectives[j];
-               //if the objective is owned by our server, and has a guild that claimed it
-               if (objective.owner == serverColor && objective.owner_guild) {
-                  //Get the information of that guild.
-                  getGuildInfo(objective.owner_guild);
+         if (response){
+            for (i = 0; i < response.maps.length; i++) {
+               var map = response.maps[i];
+               //loop on every objective from that map
+               for (j = 0; j < map.objectives.length; j++) {
+                  var objective = map.objectives[j];
+                  //if the objective is owned by our server, and has a guild that claimed it
+                  if (objective.owner == serverColor && objective.owner_guild) {
+                     //Get the information of that guild.
+                     getGuildInfo(objective.owner_guild);
+                  }
                }
             }
          }
          wait60sec(match_id, serverColor);
       });
-   }).on('error', function(e) {
-         console.log("Got error: ", e);
    });
 } 
 
