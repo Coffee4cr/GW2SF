@@ -102,6 +102,9 @@ function getGuildInfo(guild_id) {
    //get the guild details
    http.get(guildDetailUrl, function(res) {
       res.setEncoding('utf8');
+      res.on('error', function(e) {
+         console.log("getGuildInfo - Got error: ", e);
+      });
       res.on('data', function(chunk) {
          body += chunk;
       });
