@@ -113,6 +113,7 @@ function getGuildInfo(guild_id) {
          ////////////////////
          //Database Queries//
          ////////////////////
+         console.log(response.guild_id + '    [' + response.tag + ']  '+ response.guild_name);
          guild  = {guild_id                        : response.guild_id, 
                    guild_name                      : response.guild_name,
                    tag                             : response.tag,
@@ -128,24 +129,19 @@ function getGuildInfo(guild_id) {
                console.log('error connecting: ' + errGuild.stack);
                return;
             }
-            console.log(response.guild_id); 
+             
             
             var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
                //error
-               if (errFlagId || !resultFlagId) {
+               if (errFlagId) {
                   console.error('error connecting: ' + errFlagId.stack);
                   console.log('error connecting: ' + errFlagId.stack);
                   return;
                }
-for (var key in resultFlagId[0]) {
-  if (resultFlagId.hasOwnProperty(key)) {
-    console.log(key + " -> " + resultFlagId[0][key]);
-  }
-}
                lastIdInserted = resultFlagId[0].flag_id
                if(isDefined(response.emblem)) {   
                   if(response.emblem.flags.length !== 0) {
-                     console.log('['+ response.tag + '] ' + response.guild_name + '  flags: ' + response.emblem.flags);
+                     //console.log('['+ response.tag + '] ' + response.guild_name + '  flags: ' + response.emblem.flags);
                      var emblem = {id                              : lastIdInserted, 
                                    background_id                   : response.emblem.background_id,
                                    foreground_id                   : response.emblem.foreground_id,
@@ -163,7 +159,7 @@ for (var key in resultFlagId[0]) {
                                       flags                           : '"'+response.emblem.flags +'"'
                                      };
                   }else {
-                     console.log('['+ response.tag + '] ' + response.guild_name);
+                     //console.log('['+ response.tag + '] ' + response.guild_name);
                      var emblem = {id                              : lastIdInserted, 
                                    background_id                   : response.emblem.background_id,
                                    foreground_id                   : response.emblem.foreground_id,
