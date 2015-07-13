@@ -112,7 +112,7 @@ function getGuildInfo(guild_id) {
          ////////////////////
          //Database Queries//
          ////////////////////
-         console.log(response.guild_id + '    [' + response.tag + ']  '+ response.guild_name);
+         //console.log(response.guild_id + '    [' + response.tag + ']  '+ response.guild_name);
          guild  = {guild_id                        : response.guild_id, 
                    guild_name                      : response.guild_name,
                    tag                             : response.tag,
@@ -126,7 +126,7 @@ function getGuildInfo(guild_id) {
             //error
             if (errGuild) return resultGuild.json(errGuild);
              
-            
+            console.log('response.guild_id:'+ response.guild_id);
             var queryGuild = connection.query('SELECT flag_id FROM guilds WHERE guild_id = ?', response.guild_id, function(errFlagId, resultFlagId) {
                //error
                if (errFlagId) return resultFlagId.json(errFlagId);
